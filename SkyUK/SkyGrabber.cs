@@ -86,6 +86,10 @@ namespace SkyUK
         Settings.IsGrabbing = true;
         Reset();
         Thread back = new Thread(Grabit);
+
+        if (_useThrottle)
+            back.Priority = ThreadPriority.Lowest;
+
         back.Start();
       }
     }
@@ -216,12 +220,6 @@ namespace SkyUK
       numberTIDPopulated = 0;
       GotAllTID = false;
       _logosToDownload.Clear();
-    }
-
-    protected void Throttle()
-    {
-      if (_useThrottle)
-        Thread.Sleep(200);
     }
 
     #endregion
